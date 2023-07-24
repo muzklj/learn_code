@@ -1,0 +1,59 @@
+查看文件大小 
+{
+    du -sh                      #当前目录或者后加文件名
+    du -h --max-depth=0*        #当前目录,和[du -sh]相同, 可以改变最大深度
+    du -h --max-depth=1*        #当前规定目录的下一级目录
+}
+
+复制文件
+{
+    cp dir1/a.doc dir2          #将dir1下的a.doc文件复制到dir2文件夹下
+    cp -r dir1 dir2             #将dir1文件夹复制到dir2文件夹下
+    cp -r dir1/. dir2           #将dir1下的所有文件复制到dir文件夹下 
+    scp                         #复制服务器文件
+}
+
+查看文件数目
+{
+    ls -l | grep '^-' | wc -l   #统计当前目录下文件数目
+    ls -lR | grep '^-' | wc -l  #统计当前目录及所有子目录下文件数目
+    ls -lR | grep '.jpg' |wc -l #统计当前目录及所有子目录下以‘.jpg’后缀结尾的图片个数
+    ls -lR | grep '^d' | wc -l  #统计当前目录下及所有子目录下所有文件夹数目
+}
+目录操作
+{
+    pwd                         #获取当前文件夹路径
+    mkdir[folder name]          #在当前目录新建文件夹
+    mkdir /usr/home/[folder]    #在指定路径下新建文件夹
+    rm -rf [file/folder]        #删除文件或文件夹
+    touch [filename]            #当前目录创建一个filename文件
+    mv [name1] [name2]          #将目录name1重命名为name2
+    mv [/usr/home/folder] [/user]   #将folder目录剪切到/user目录下
+    find /usr/home -name 'a*'   #查找/usr/home目录下所有以a开头的目录或文件
+    tar -zcvf [name].tar [file1] [file2]       #将file1以及file2压缩为name.tar文件
+    tar -xvf [name].tar -C /usr    #将name.tar文件解压缩在/usr目录下
+}
+conda虚拟环境
+{
+    conda info --envs           #查看虚拟环境
+    conda create -n torch1.6 python=3.8     #创建虚拟环境
+    conda remove -n myenv --all #删除虚拟环境
+    conda activate myenv        #激活虚拟环境
+    conda deactivate            #关闭虚拟环境
+    #
+    #使用conda env config vars set my_var=value设置当前虚拟环境中的自定义环境变量，
+    #这里使用以下命令更改所有虚拟环境内的cuda环境变量
+    #通过-n参数可以指定具体的虚拟环境来设置自定义环境变量
+    conda env config vars set LD_LIBRARY_PATH=/usr/local/cuda-10.2/lib64 -n yolov5
+    conda env config vars set PATH=/usr/local/cuda-10.2/bin:$PATH -n yolov5
+    conda env config vars set CUDA_HOME=/usr/local/cuda-10.2 -n yolov5
+    conda env config vars list  #查看虚拟环境中的环境变量
+}
+
+NVIDIA cuda
+{
+    CUDA_VISIBLE_DEVICES=2#指定GPU
+ps -ef|grep  128564#查看启动进程的命令行信息
+}
+
+
